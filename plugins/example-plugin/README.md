@@ -28,6 +28,7 @@ description: Short description for /help
 argument-hint: <arg1> [optional-arg]
 allowed-tools: [Read, Glob, Grep]
 ---
+```
 
 ### Skills (`skills/`)
 
