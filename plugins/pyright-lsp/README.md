@@ -1,8 +1,31 @@
 # pyright-lsp
 
-This plugin provides LSP (Language Server Protocol) integration for Claude Code.
+Python language server (Pyright) for Claude Code, providing static type checking and code intelligence.
 
-## Requirements
+## Supported Extensions
+`.py`, `.pyi`
 
-The corresponding language server must be installed on your system. The plugin will be recommended when you edit files with the supported extensions and have the language server binary available.
+## Installation
 
+Install Pyright globally via npm:
+
+```bash
+npm install -g pyright
+```
+
+Or with pip:
+
+```bash
+pip install pyright
+```
+
+Or with pipx (recommended for CLI tools):
+
+```bash
+pipx install pyright
+```
+
+## More Information
+- [Pyright on npm](https://www.npmjs.com/package/pyright)
+- [Pyright on PyPI](https://pypi.org/project/pyright/)
+- [GitHub Repository](https://github.com/microsoft/pyright)

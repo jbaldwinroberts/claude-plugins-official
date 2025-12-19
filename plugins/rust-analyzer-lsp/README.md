@@ -1,8 +1,34 @@
 # rust-analyzer-lsp
 
-This plugin provides LSP (Language Server Protocol) integration for Claude Code.
+Rust language server for Claude Code, providing code intelligence and analysis.
 
-## Requirements
+## Supported Extensions
+`.rs`
 
-The corresponding language server must be installed on your system. The plugin will be recommended when you edit files with the supported extensions and have the language server binary available.
+## Installation
 
+### Via rustup (recommended)
+```bash
+rustup component add rust-analyzer
+```
+
+### Via Homebrew (macOS)
+```bash
+brew install rust-analyzer
+```
+
+### Via package manager (Linux)
+```bash
+# Ubuntu/Debian
+sudo apt install rust-analyzer
+
+# Arch Linux
+sudo pacman -S rust-analyzer
+```
+
+### Manual download
+Download pre-built binaries from the [releases page](https://github.com/rust-lang/rust-analyzer/releases).
+
+## More Information
+- [rust-analyzer Website](https://rust-analyzer.github.io/)
+- [GitHub Repository](https://github.com/rust-lang/rust-analyzer)

@@ -1,8 +1,24 @@
 # php-lsp
 
-This plugin provides LSP (Language Server Protocol) integration for Claude Code.
+PHP language server (Intelephense) for Claude Code, providing code intelligence and diagnostics.
 
-## Requirements
+## Supported Extensions
+`.php`
 
-The corresponding language server must be installed on your system. The plugin will be recommended when you edit files with the supported extensions and have the language server binary available.
+## Installation
 
+Install Intelephense globally via npm:
+
+```bash
+npm install -g intelephense
+```
+
+Or with yarn:
+
+```bash
+yarn global add intelephense
+```
+
+## More Information
+- [Intelephense Website](https://intelephense.com/)
+- [Intelephense on npm](https://www.npmjs.com/package/intelephense)

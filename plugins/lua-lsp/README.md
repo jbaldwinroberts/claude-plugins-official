@@ -1,8 +1,32 @@
 # lua-lsp
 
-This plugin provides LSP (Language Server Protocol) integration for Claude Code.
+Lua language server for Claude Code, providing code intelligence and diagnostics.
 
-## Requirements
+## Supported Extensions
+`.lua`
 
-The corresponding language server must be installed on your system. The plugin will be recommended when you edit files with the supported extensions and have the language server binary available.
+## Installation
 
+### Via Homebrew (macOS)
+```bash
+brew install lua-language-server
+```
+
+### Via package manager (Linux)
+```bash
+# Ubuntu/Debian (via snap)
+sudo snap install lua-language-server --classic
+
+# Arch Linux
+sudo pacman -S lua-language-server
+
+# Fedora
+sudo dnf install lua-language-server
+```
+
+### Manual Installation
+Download pre-built binaries from the [releases page](https://github.com/LuaLS/lua-language-server/releases).
+
+## More Information
+- [Lua Language Server GitHub](https://github.com/LuaLS/lua-language-server)
+- [Documentation](https://luals.github.io/)

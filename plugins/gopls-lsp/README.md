@@ -1,8 +1,20 @@
 # gopls-lsp
 
-This plugin provides LSP (Language Server Protocol) integration for Claude Code.
+Go language server for Claude Code, providing code intelligence, refactoring, and analysis.
 
-## Requirements
+## Supported Extensions
+`.go`
 
-The corresponding language server must be installed on your system. The plugin will be recommended when you edit files with the supported extensions and have the language server binary available.
+## Installation
 
+Install gopls using the Go toolchain:
+
+```bash
+go install golang.org/x/tools/gopls@latest
+```
+
+Make sure `$GOPATH/bin` (or `$HOME/go/bin`) is in your PATH.
+
+## More Information
+- [gopls Documentation](https://pkg.go.dev/golang.org/x/tools/gopls)
+- [GitHub Repository](https://github.com/golang/tools/tree/master/gopls)
