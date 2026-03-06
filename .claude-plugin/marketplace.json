@@ -684,6 +684,19 @@
         "url": "https://github.com/semgrep/mcp-marketplace.git"
       },
       "homepage": "https://github.com/semgrep/mcp-marketplace.git"
+    },
+    {
+      "name": "railway",
+      "description": "Deploy and manage apps, databases, and infrastructure on Railway. Covers project setup, deploys, environment configuration, networking, troubleshooting, and monitoring.",
+      "category": "deployment",
+      "source": {
+        "source": "git-subdir",
+        "url": "railwayapp/railway-skills",
+        "path": "plugins/railway",
+        "ref": "main",
+        "sha": "d52f3741a6a33a3191d6138eb3d6c3355cb970d1"
+      },
+      "homepage": "https://docs.railway.com/ai/claude-code-plugin"
     }
   ]
 }
