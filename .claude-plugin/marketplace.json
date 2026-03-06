@@ -684,6 +684,17 @@
         "url": "https://github.com/semgrep/mcp-marketplace.git"
       },
       "homepage": "https://github.com/semgrep/mcp-marketplace.git"
+    },
+    {
+      "name": "data",
+      "description": "Data engineering for Apache Airflow and Astronomer. Author DAGs with best practices, debug pipeline failures, trace data lineage, profile tables, migrate Airflow 2 to 3, and manage local and cloud deployments.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/astronomer/agents.git",
+        "sha": "7ef022b02f5296b5ecc52ba0db3ba9345ec03c9e"
+      },
+      "homepage": "https://github.com/astronomer/agents"
     }
   ]
 }
