@@ -863,6 +863,17 @@
         "sha": "ce435be18a700dc849d6a63a80da4816d1e2128c"
       },
       "homepage": "https://www.mintlify.com/"
+    },
+    {
+      "name": "sumup",
+      "description": "SumUp payment integrations across terminal and online checkout flows. Build Android and iOS POS apps with SumUp card readers, online checkout with server SDKs and the checkout widget, and control card readers remotely via Cloud API.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/sumup/sumup-skills.git",
+        "sha": "802476c39a0422d3277e37288b03968ad731bc30"
+      },
+      "homepage": "https://www.sumup.com/"
     }
   ]
 }
