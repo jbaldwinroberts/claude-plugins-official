@@ -814,6 +814,20 @@
         "sha": "cfe3d44476957b16d1575261bef6b2dc7cb1e0b7"
       },
       "homepage": "https://sourcegraph.com"
+    },
+    {
+      "name": "sanity-plugin",
+      "description": "Sanity content platform integration with MCP server, agent skills, and slash commands. Query and author content, build and optimize GROQ queries, design schemas, and set up Visual Editing.",
+      "category": "development",
+      "author": {
+        "name": "Sanity"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/sanity-io/agent-toolkit.git",
+        "sha": "4b1fb10bd707a22cf0cdfad5374ffc885f2ffa8d"
+      },
+      "homepage": "https://www.sanity.io"
     }
   ]
 }
