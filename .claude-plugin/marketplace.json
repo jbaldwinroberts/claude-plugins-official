@@ -874,6 +874,17 @@
         "sha": "802476c39a0422d3277e37288b03968ad731bc30"
       },
       "homepage": "https://www.sumup.com/"
+    },
+    {
+      "name": "wix",
+      "description": "Build, manage, and deploy Wix sites and apps. CLI development skills for dashboard extensions, backend APIs, site widgets, and service plugins with the Wix Design System, plus MCP server for site management.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/wix/skills.git",
+        "sha": "15dda227e34959b1340e33bb9aede7e23a273f42"
+      },
+      "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     }
   ]
 }
