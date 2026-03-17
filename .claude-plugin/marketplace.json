@@ -552,7 +552,7 @@
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/linear"
     },
     {
-      "name": "Notion",
+      "name": "notion",
       "description": "Notion workspace integration. Search pages, create and update documents, manage databases, and access your team's knowledge base directly from Claude Code for seamless documentation workflows.",
       "category": "productivity",
       "source": {
@@ -594,9 +594,9 @@
       "category": "deployment",
       "source": {
         "source": "url",
-        "url": "https://github.com/vercel/vercel-deploy-claude-code-plugin.git"
+        "url": "https://github.com/vercel/vercel-plugin.git"
       },
-      "homepage": "https://github.com/vercel/vercel-deploy-claude-code-plugin"
+      "homepage": "https://github.com/vercel/vercel-plugin"
     },
     {
       "name": "stripe",
@@ -709,8 +709,7 @@
       "category": "development",
       "source": {
         "source": "url",
-        "url": "https://github.com/qodo-ai/qodo-skills.git",
-        "sha": "623eb4ed4364d8111f9a9132a791d7497d814b6a"
+        "url": "https://github.com/qodo-ai/qodo-skills.git"
       },
       "homepage": "https://github.com/qodo-ai/qodo-skills.git"
     },
@@ -946,6 +945,99 @@
         "sha": "b93007e9a726c6ee93c57a949e732744ef5acbfd"
       },
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
+    },
+    {
+      "name": "terraform",
+      "description": "The Terraform MCP Server provides seamless integration with Terraform ecosystem, enabling advanced automation and interaction capabilities for Infrastructure as Code (IaC) development.",
+      "author": {
+        "name": "HashiCorp",
+        "email": "support@hashicorp.com"
+      },
+      "category": "development",
+      "source": "./external_plugins/terraform",
+      "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/terraform"
+    },
+    {
+      "name": "autofix-bot",
+      "description": "Code review agent that detects security vulnerabilities, code quality issues, and hardcoded secrets. Combines 5,000+ static analyzers to scan your code and dependencies for CVEs.",
+      "author": {
+        "name": "DeepSource Corp"
+      },
+      "category": "security",
+      "source": "./external_plugins/autofix-bot",
+      "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/autofix-bot"
+    },
+    {
+      "name": "stagehand",
+      "description": "Browser automation skill for Claude Code using Stagehand. Automate web interactions, extract data, and navigate websites using natural language.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Browserbase"
+      },
+      "source": {
+        "source": "github",
+        "repo": "browserbase/agent-browse"
+      },
+      "category": "automation",
+      "keywords": [
+        "browser",
+        "automation",
+        "stagehand",
+        "web-scraping"
+      ],
+      "homepage": "https://github.com/browserbase/agent-browse",
+      "strict": false,
+      "skills": [
+        "./.claude/skills/browser-automation"
+      ]
+    },
+    {
+      "name": "atomic-agents",
+      "description": "Comprehensive development workflow for building AI agents with the Atomic Agents framework. Includes specialized agents for schema design, architecture planning, code review, and tool development. Features guided workflows, progressive-disclosure skills, and best practice validation.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/BrainBlend-AI/atomic-agents.git",
+        "path": "claude-plugin/atomic-agents"
+      },
+      "homepage": "https://github.com/BrainBlend-AI/atomic-agents",
+      "tags": [
+        "community-managed"
+      ]
+    },
+    {
+      "name": "microsoft-docs",
+      "description": "Access official Microsoft documentation, API references, and code samples for Azure, .NET, Windows, and more.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/MicrosoftDocs/mcp.git"
+      },
+      "homepage": "https://github.com/microsoftdocs/mcp"
+    },
+    {
+      "name": "neon",
+      "description": "Manage your Neon projects and databases with the neon-postgres agent skill and the Neon MCP Server.",
+      "category": "database",
+      "source": {
+        "source": "git-subdir",
+        "url": "neondatabase/agent-skills",
+        "path": "plugins/neon-postgres",
+        "ref": "main",
+        "sha": "54d7a9db2ddd476f84d5d1fd7bac323907858a8b"
+      },
+      "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
+    },
+    {
+      "name": "intercom",
+      "description": "Intercom integration for Claude Code. Search conversations, analyze customer support patterns, look up contacts and companies, and install the Intercom Messenger. Connect your Intercom workspace to get real-time insights from customer data.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/intercom/claude-plugin-external.git",
+        "sha": "eeef353eead2e3dc5f33f64dbaae54e1309e0d45"
+      },
+      "homepage": "https://github.com/intercom/claude-plugin-external"
     }
   ]
 }
