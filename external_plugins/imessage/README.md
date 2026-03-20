@@ -17,7 +17,7 @@ If you click Don't Allow, or the prompt never appears, grant it manually: **Syst
 
 These are Claude Code commands — run `claude` to start a session first.
 
-Install the plugin. No env vars needed.
+Install the plugin. No env vars required.
 ```
 /plugin install imessage@claude-plugins-official
 ```
@@ -56,6 +56,13 @@ Handles are phone numbers (`+15551234567`) or Apple ID emails (`them@icloud.com`
 | **Outbound** | `osascript` with `tell application "Messages" to send …`. Text and chat GUID pass through argv so there's no escaping footgun. |
 | **History & search** | Direct SQLite queries against `chat.db`. Full history — not just messages since the server started. |
 | **Attachments** | `chat.db` stores absolute filesystem paths. The first inbound image per message is surfaced to the assistant as a local path it can `Read`. Outbound attachments send as separate messages after the text. |
+
+## Environment variables
+
+| Variable | Default | Effect |
+| --- | --- | --- |
+| `IMESSAGE_APPEND_SIGNATURE` | `true` | Appends `\nSent by Claude` to outbound messages. Set to `false` to disable. |
+| `IMESSAGE_ACCESS_MODE` | — | Set to `static` to disable runtime pairing and read `access.json` only. |
 
 ## Access control
 

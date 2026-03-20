@@ -30,6 +30,8 @@ import { homedir } from 'os'
 import { join, basename, sep } from 'path'
 
 const STATIC = process.env.IMESSAGE_ACCESS_MODE === 'static'
+const APPEND_SIGNATURE = process.env.IMESSAGE_APPEND_SIGNATURE !== 'false'
+const SIGNATURE = '\nSent by Claude'
 const CHAT_DB = join(homedir(), 'Library', 'Messages', 'chat.db')
 
 const STATE_DIR = join(homedir(), '.claude', 'channels', 'imessage')
@@ -550,6 +552,7 @@ mcp.setRequestHandler(CallToolRequestSchema, async req => {
         const limit = Math.max(1, Math.min(access.textChunkLimit ?? MAX_CHUNK_LIMIT, MAX_CHUNK_LIMIT))
         const mode = access.chunkMode ?? 'length'
         const chunks = chunk(text, limit, mode)
+        if (APPEND_SIGNATURE && chunks.length > 0) chunks[chunks.length - 1] += SIGNATURE
         let sent = 0
 
         for (let i = 0; i < chunks.length; i++) {
