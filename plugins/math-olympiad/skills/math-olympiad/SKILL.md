@@ -195,7 +195,13 @@ The standard workflow is tight-budget: 8 solvers, ~15 min, pure reasoning. When 
 
 The archetype: a focused agent that gets the proven-so-far state plus "one case of Lemma 5 is open" — and finds a 3-line argument the case split was obscuring. Often under 10 minutes with almost no computation. Deep mode is about giving the problem sustained attention, not throwing compute at it.
 
-**What deep mode is NOT**: open-ended exploration, literature search, multi-day investigation. That's a different workflow (`math-research`). Deep mode is still "solve THIS problem" — just without the clock.
+**What deep mode is NOT**: open-ended exploration, literature search, looking up solutions, multi-day investigation. That's a different workflow (`math-research`). Deep mode is still "solve THIS problem yourself" — just without the clock.
+
+**NO WEB. NO LOOKUP.** Deep mode may use Bash/Python for bounded computation, but NEVER WebFetch, WebSearch, or any network access. Finding the solution on AoPS or a blog is not solving the problem — it's cheating on an olympiad, and it teaches us nothing about the skill's actual capability. Put this at the TOP of the deep-mode prompt:
+
+```
+NO WEB ACCESS. Do not use WebFetch, WebSearch, or any tool that touches the internet. Do not look up this problem, its solution, or related problems. You are solving this yourself — the only allowed computation is local (Bash/Python for mod-k arithmetic, small-case enumeration n≤10, symbolic identity checks). If you invoke a web tool, the proof is void.
+```
 
 **Computation bounds in deep mode** (bug #8 lesson): A6's b_{n+1}=2b_n²+b_n+1 is doubly-exponential; b_99 has ~10^{2^98} digits. Never compute such objects exactly — work in ℤ/2^m, or track only v_p(·), or prove the recursion mod the quantity you care about. If a computation is running longer than 60 seconds, it's probably unbounded. Kill it and work symbolically.
 
@@ -203,9 +209,11 @@ The archetype: a focused agent that gets the proven-so-far state plus "one case 
 - The problem statement
 - The best partial proof from tight-budget solvers
 - The verifier gap descriptions (what specifically didn't close)
-- The instruction: "Bounded computation allowed (mod 2^k, small cases n≤10, symbolic identity checks). 60-second computation limit. If n≤10 brute force reveals a pattern the tight-budget solvers missed, that pattern IS the proof structure."
+- The instruction: "NO WEB ACCESS — do not look up this problem or its solution. Bounded local computation allowed (mod 2^k, small cases n≤10, symbolic identity checks via Bash/Python only). 60-second computation limit. If n≤10 brute force reveals a pattern the tight-budget solvers missed, that pattern IS the proof structure."
 
 The deep agent may find the construction the pure-reasoning solvers couldn't see. If it also abstains, THEN write the abstention. Do not skip this step — problems with √n or log n answers are often invisible to pure reasoning because the optimal structure is the asymmetric one.
+
+**Orchestrator self-restraint**: The orchestrator itself must not web-search the problem "to help" the deep agent. If you're tempted to Fetch an AoPS thread "just to check the answer," don't — that contaminates the skill's output and misrepresents its capability.
 
 ### 7. Calibrated abstention
 
