@@ -536,10 +536,13 @@ mcp.setNotificationHandler(
   async ({ params }) => {
     const { request_id, tool_name, description, input_preview } = params
     const access = loadAccess()
+    // input_preview is unbearably long for Write/Edit; show only for Bash
+    // where the command itself is the dangerous part.
+    const preview = tool_name === 'Bash' ? `${input_preview}\n\n` : '\n'
     const text =
       `🔐 Permission request [${request_id}]\n` +
       `${tool_name}: ${description}\n` +
-      `${input_preview}\n\n` +
+      preview +
       `Reply "yes ${request_id}" to allow or "no ${request_id}" to deny.`
     // allowFrom holds handle IDs, not chat GUIDs — resolve via qChatsForHandle.
     // Include SELF addresses so the owner's self-chat gets the prompt even
