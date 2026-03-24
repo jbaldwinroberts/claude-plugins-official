@@ -63,6 +63,7 @@ Handles are phone numbers (`+15551234567`) or Apple ID emails (`them@icloud.com`
 | --- | --- | --- |
 | `IMESSAGE_APPEND_SIGNATURE` | `true` | Appends `\nSent by Claude` to outbound messages. Set to `false` to disable. |
 | `IMESSAGE_ACCESS_MODE` | — | Set to `static` to disable runtime pairing and read `access.json` only. |
+| `IMESSAGE_STATE_DIR` | `~/.claude/channels/imessage` | Override where `access.json` and pairing state live. |
 
 ## Access control
 
