@@ -32,6 +32,10 @@ import { join, basename, sep } from 'path'
 
 const STATIC = process.env.IMESSAGE_ACCESS_MODE === 'static'
 const APPEND_SIGNATURE = process.env.IMESSAGE_APPEND_SIGNATURE !== 'false'
+// SMS sender IDs are spoofable; iMessage is Apple-ID-authenticated. Default
+// drops SMS/RCS so a forged sender can't reach the gate. Opt in only if you
+// understand the risk.
+const ALLOW_SMS = process.env.IMESSAGE_ALLOW_SMS === 'true'
 const SIGNATURE = '\nSent by Claude'
 const CHAT_DB = join(homedir(), 'Library', 'Messages', 'chat.db')
 
@@ -104,6 +108,7 @@ type Row = {
   date: number
   is_from_me: number
   cache_has_attachments: number
+  service: string | null
   handle_id: string | null
   chat_guid: string
   chat_style: number | null
@@ -113,7 +118,7 @@ const qWatermark = db.query<{ max: number | null }, []>('SELECT MAX(ROWID) AS ma
 
 const qPoll = db.query<Row, [number]>(`
   SELECT m.ROWID AS rowid, m.guid, m.text, m.attributedBody, m.date, m.is_from_me,
-         m.cache_has_attachments, h.id AS handle_id, c.guid AS chat_guid, c.style AS chat_style
+         m.cache_has_attachments, m.service, h.id AS handle_id, c.guid AS chat_guid, c.style AS chat_style
   FROM message m
   JOIN chat_message_join cmj ON cmj.message_id = m.ROWID
   JOIN chat c ON c.ROWID = cmj.chat_id
@@ -124,7 +129,7 @@ const qPoll = db.query<Row, [number]>(`
 
 const qHistory = db.query<Row, [string, number]>(`
   SELECT m.ROWID AS rowid, m.guid, m.text, m.attributedBody, m.date, m.is_from_me,
-         m.cache_has_attachments, h.id AS handle_id, c.guid AS chat_guid, c.style AS chat_style
+         m.cache_has_attachments, m.service, h.id AS handle_id, c.guid AS chat_guid, c.style AS chat_style
   FROM message m
   JOIN chat_message_join cmj ON cmj.message_id = m.ROWID
   JOIN chat c ON c.ROWID = cmj.chat_id
@@ -710,6 +715,7 @@ function expandTilde(p: string): string {
 
 function handleInbound(r: Row): void {
   if (!r.chat_guid) return
+  if (!ALLOW_SMS && r.service !== 'iMessage') return
 
   // style 45 = DM, 43 = group. Drop unknowns rather than risk routing a
   // group message through the DM gate and leaking a pairing code.
