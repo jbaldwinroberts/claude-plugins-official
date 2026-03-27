@@ -725,7 +725,10 @@ function handleInbound(r: Row): void {
 
   const text = messageText(r)
   const hasAttachments = r.cache_has_attachments === 1
-  if (!text && !hasAttachments) return
+  // Tapbacks, read receipts, and other sync noise from linked devices land
+  // as rows with whitespace-only text or bare attachment flags. trim() so
+  // they don't trigger unsolicited replies. See #1041.
+  if (!text.trim() && !hasAttachments) return
 
   // Never deliver our own sends. In self-chat the is_from_me=1 rows are empty
   // sent-receipts anyway — the content lands on the is_from_me=0 copy below.
