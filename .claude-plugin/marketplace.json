@@ -1312,14 +1312,17 @@
       "homepage": "https://github.com/slackapi/slack-mcp-plugin/tree/main"
     },
     {
-      "name": "sonarqube-agent-plugins",
-      "description": "Integrate SonarQube code quality and security analysis into Claude Code: namespaced slash commands, a guided skill to setup the SonarQube CLI, and a startup check for CLI wiring. MCP server registration and secrets-scanning hooks are installed by the SonarQube CLI as part of setup.",
+      "name": "sonarqube",
+      "description": "Automatically enforce SonarQube code quality and security in the agent coding loop — 7,000+ rules, secrets scanning, agentic analysis, and quality gates across 40+ languages. PostToolUse hooks run analysis after every file edit. Pre-tool secrets scanning prevents 450+ patterns from reaching the LLM. Slash commands give on-demand access to quality gate status, coverage, duplication, and dependency risks. Includes SonarQube CLI, MCP Server, skills, hooks, and slash commands.",
+      "author": {
+        "name": "SonarSource"
+      },
       "category": "security",
       "source": {
         "source": "url",
         "url": "https://github.com/SonarSource/sonarqube-agent-plugins.git"
       },
-      "homepage": "https://github.com/SonarSource/sonarqube-agent-plugins"
+      "homepage": "https://www.sonarsource.com"
     },
     {
       "name": "sonatype-guide",
