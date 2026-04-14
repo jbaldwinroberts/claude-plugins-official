@@ -185,8 +185,7 @@
       "category": "deployment",
       "source": {
         "source": "url",
-        "url": "https://github.com/microsoft/azure-skills.git",
-        "sha": "6ffe5ea548bae9679c4eb4f5c82c51db3527d58c"
+        "url": "https://github.com/microsoft/azure-skills.git"
       },
       "homepage": "https://github.com/microsoft/azure-skills"
     },
