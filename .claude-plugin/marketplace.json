@@ -1291,6 +1291,19 @@
       "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/session-report"
     },
     {
+      "name": "shopify",
+      "description": "Shopify developer tools for Claude Code — search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code",
+      "author": {
+        "name": "Shopify"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Shopify/shopify-plugins.git"
+      },
+      "homepage": "https://shopify.dev/docs/apps/build/devmcp"
+    },
+    {
       "name": "skill-creator",
       "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis.",
       "author": {
@@ -1310,19 +1323,6 @@
         "url": "https://github.com/slackapi/slack-mcp-plugin.git"
       },
       "homepage": "https://github.com/slackapi/slack-mcp-plugin/tree/main"
-    },
-    {
-      "name": "shopify",
-      "description": "Shopify developer tools for Claude Code — search Shopify docs, generate and validate GraphQL, Liquid, and UI extension code",
-      "author": {
-        "name": "Shopify"
-      },
-      "category": "development",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/Shopify/shopify-plugins.git"
-      },
-      "homepage": "https://shopify.dev/docs/apps/build/devmcp"
     },
     {
       "name": "sonarqube-agent-plugins",
