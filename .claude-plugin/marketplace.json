@@ -897,8 +897,7 @@
         "source": "git-subdir",
         "url": "https://github.com/miroapp/miro-ai.git",
         "path": "claude-plugins/miro",
-        "ref": "main",
-        "sha": "748bd6afbf60ebc1a1a42bc2e275bfaee53a3eb6"
+        "ref": "main"
       },
       "homepage": "https://miro.com"
     },
