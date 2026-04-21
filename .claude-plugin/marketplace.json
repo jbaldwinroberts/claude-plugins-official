@@ -358,10 +358,14 @@
     {
       "name": "cockroachdb",
       "description": "CockroachDB plugin for Claude Code — explore schemas, write optimized SQL, debug queries, and manage distributed database clusters directly from your AI coding agent.",
+      "author": {
+        "name": "CockroachDB"
+      },
+      "category": "database",
       "source": {
         "source": "url",
         "url": "https://github.com/cockroachdb/claude-plugin.git",
-        "sha": "a54566e03c852567589ef85bb449d1e4de229667"
+        "sha": "2263d09ec5dff0ba4042bb9074c3719d064d934a"
       },
       "homepage": "https://github.com/cockroachdb/claude-plugin"
     },
