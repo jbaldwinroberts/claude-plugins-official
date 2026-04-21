@@ -364,8 +364,7 @@
       "category": "database",
       "source": {
         "source": "url",
-        "url": "https://github.com/cockroachdb/claude-plugin.git",
-        "sha": "2263d09ec5dff0ba4042bb9074c3719d064d934a"
+        "url": "https://github.com/cockroachdb/claude-plugin.git"
       },
       "homepage": "https://github.com/cockroachdb/claude-plugin"
     },
