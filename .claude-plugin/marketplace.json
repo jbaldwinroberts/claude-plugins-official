@@ -160,6 +160,19 @@
       "homepage": "https://github.com/atlassian/atlassian-mcp-server"
     },
     {
+      "name": "atlassian-forge-skills",
+      "description": "Forge-focused skill bundle and MCP tooling for Atlassian Forge: scaffold apps, review before deploy, debug production issues, and stay current on Forge APIs and the Atlassian Design System.",
+      "author": {
+        "name": "Atlassian Labs"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/atlassian/forge-skills.git"
+      },
+      "homepage": "https://developer.atlassian.com"
+    },
+    {
       "name": "atomic-agents",
       "description": "Comprehensive development workflow for building AI agents with the Atomic Agents framework. Includes specialized agents for schema design, architecture planning, code review, and tool development. Features guided workflows, progressive-disclosure skills, and best practice validation.",
       "category": "development",
