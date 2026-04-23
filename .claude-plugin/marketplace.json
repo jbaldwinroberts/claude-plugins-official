@@ -1887,6 +1887,19 @@
         "url": "https://github.com/zoom/zoom-plugin.git"
       },
       "homepage": "https://developers.zoom.us/"
+    },
+    {
+      "name": "zscaler",
+      "description": "Manage Zscaler cloud security platform including ZPA (private access), ZIA (internet access), ZDX (digital experience), ZCC (client connector), EASM (attack surface), and Z-Insights (analytics). Create and manage policies, troubleshoot connectivity, audit security configurations, and investigate incidents across the full Zscaler ecosystem.",
+      "author": {
+        "name": "Zscaler"
+      },
+      "category": "security",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/zscaler/zscaler-mcp-server.git"
+      },
+      "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     }
   ]
 }
