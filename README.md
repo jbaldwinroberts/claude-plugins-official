@@ -1,4 +1,12 @@
-# Claude Code Plugins Directory
+# Claude Code Plugins Directory (fork)
+
+Fork of [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) with the following patches applied on `main`:
+
+- **telegram: MarkdownV2/HTML parse fallback** — messages with unescaped special chars were being silently dropped by Telegram (400 error). This fork retries as plain text so messages always deliver. Upstream PR: [#1570](https://github.com/anthropics/claude-plugins-official/pull/1570)
+
+To use: point your `settings.json` `enabledPlugins` at this fork instead of the official marketplace. Patches will be removed from `main` once upstream merges.
+
+---
 
 A curated directory of high-quality plugins for Claude Code.
 
