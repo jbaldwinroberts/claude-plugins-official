@@ -467,6 +467,18 @@ mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
             enum: ['text', 'markdownv2'],
             description: "Rendering mode. 'markdownv2' enables Telegram formatting (bold, italic, code, links). Caller must escape special chars per MarkdownV2 rules. Default: 'text' (plain, no escaping needed).",
           },
+          buttons: {
+            type: 'array',
+            description: "Optional inline keyboard for one-tap acknowledgements (DM reactions are not delivered to bots, so this is the workaround). Each tap delivers `value` back as a synthetic inbound message with meta.via='ack_button'. Laid out 2 per row in given order. Caller is responsible for routing the inbound (e.g. value 'approve' triggers post). Value max 48 chars (Telegram callback_data limit). When set, attached only to the final chunk if text is split.",
+            items: {
+              type: 'object',
+              properties: {
+                label: { type: 'string', description: 'Button text shown to user. Emoji OK.' },
+                value: { type: 'string', description: 'Returned as inbound content on tap. Max 48 chars.' },
+              },
+              required: ['label', 'value'],
+            },
+          },
         },
         required: ['chat_id', 'text'],
       },
@@ -527,6 +539,7 @@ mcp.setRequestHandler(CallToolRequestSchema, async req => {
         const files = (args.files as string[] | undefined) ?? []
         const format = (args.format as string | undefined) ?? 'text'
         const parseMode = format === 'markdownv2' ? 'MarkdownV2' as const : undefined
+        const rawButtons = (args.buttons as Array<{ label: string; value: string }> | undefined) ?? []
 
         assertAllowedChat(chat_id)
 
@@ -536,6 +549,27 @@ mcp.setRequestHandler(CallToolRequestSchema, async req => {
           if (st.size > MAX_ATTACHMENT_BYTES) {
             throw new Error(`file too large: ${f} (${(st.size / 1024 / 1024).toFixed(1)}MB, max 50MB)`)
           }
+        }
+
+        // Build inline keyboard if buttons provided. callback_data has a 64-byte
+        // hard limit from Telegram; "ack:" prefix consumes 4, leaving 60. Cap at
+        // 48 to keep room for any future versioning.
+        let keyboard: InlineKeyboard | undefined
+        if (rawButtons.length > 0) {
+          for (const b of rawButtons) {
+            if (!b.label || !b.value) {
+              throw new Error('each button needs both label and value')
+            }
+            if (Buffer.byteLength(b.value, 'utf8') > 48) {
+              throw new Error(`button value too long (max 48 bytes): ${b.value}`)
+            }
+          }
+          keyboard = new InlineKeyboard()
+          rawButtons.forEach((b, i) => {
+            keyboard!.text(b.label, `ack:${b.value}`)
+            // 2 per row keeps labels readable on mobile.
+            if ((i + 1) % 2 === 0 && i < rawButtons.length - 1) keyboard!.row()
+          })
         }
 
         const access = loadAccess()
@@ -551,11 +585,16 @@ mcp.setRequestHandler(CallToolRequestSchema, async req => {
               reply_to != null &&
               replyMode !== 'off' &&
               (replyMode === 'all' || i === 0)
+            // Buttons attach to the final chunk only — anywhere else they'd
+            // appear mid-conversation and confuse the user.
+            const isLastChunk = i === chunks.length - 1
+            const replyMarkup = keyboard && isLastChunk ? keyboard : undefined
             let sent
             try {
               sent = await bot.api.sendMessage(chat_id, chunks[i], {
                 ...(shouldReplyTo ? { reply_parameters: { message_id: reply_to } } : {}),
                 ...(parseMode ? { parse_mode: parseMode } : {}),
+                ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
               })
             } catch (parseErr: any) {
               // MarkdownV2 has strict escape requirements. Telegram returns 400 when
@@ -565,6 +604,7 @@ mcp.setRequestHandler(CallToolRequestSchema, async req => {
                 process.stderr.write(`telegram channel: ${parseMode} failed, retrying as plain text\n`)
                 sent = await bot.api.sendMessage(chat_id, chunks[i], {
                   ...(shouldReplyTo ? { reply_parameters: { message_id: reply_to } } : {}),
+                  ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
                 })
               } else {
                 throw parseErr
@@ -740,11 +780,51 @@ bot.command('status', async ctx => {
   await ctx.reply(`Not paired. Send me a message to get a pairing code.`)
 })
 
-// Inline-button handler for permission requests. Callback data is
-// `perm:allow:<id>`, `perm:deny:<id>`, or `perm:more:<id>`.
+// Inline-button handler for permission requests and ack buttons.
+// Callback data is `perm:allow:<id>`, `perm:deny:<id>`, `perm:more:<id>`,
+// or `ack:<value>` (free-form, set by the caller of the reply tool).
 // Security mirrors the text-reply path: allowFrom must contain the sender.
 bot.on('callback_query:data', async ctx => {
   const data = ctx.callbackQuery.data
+
+  // Ack buttons: any callback_data prefixed `ack:` is delivered to Claude as
+  // a synthetic inbound message. Lets Atlas-style approval flows work in DMs
+  // (Telegram doesn't deliver message_reaction updates to bots in private
+  // chats, so a user 👍 reaction is dropped — buttons are the workaround).
+  if (data.startsWith('ack:')) {
+    const access = loadAccess()
+    const senderId = String(ctx.from.id)
+    if (!access.allowFrom.includes(senderId)) {
+      await ctx.answerCallbackQuery({ text: 'Not authorized.' }).catch(() => {})
+      return
+    }
+    const value = data.slice(4)
+    await ctx.answerCallbackQuery({ text: '✓' }).catch(() => {})
+    // Strip the keyboard and append the chosen value so the chat history shows
+    // the outcome and the same buttons can't be tapped twice.
+    const msg = ctx.callbackQuery.message
+    if (msg && 'text' in msg && msg.text) {
+      await ctx.editMessageText(`${msg.text}\n\n→ ${value}`).catch(() => {})
+    }
+    void mcp.notification({
+      method: 'notifications/claude/channel',
+      params: {
+        content: value,
+        meta: {
+          chat_id: String(ctx.chat!.id),
+          ...(msg ? { message_id: String(msg.message_id) } : {}),
+          user: ctx.from.username ?? String(ctx.from.id),
+          user_id: senderId,
+          ts: new Date().toISOString(),
+          via: 'ack_button',
+        },
+      },
+    }).catch(err => {
+      process.stderr.write(`telegram channel: failed to deliver ack to Claude: ${err}\n`)
+    })
+    return
+  }
+
   const m = /^perm:(allow|deny|more):([a-km-z]{5})$/.exec(data)
   if (!m) {
     await ctx.answerCallbackQuery().catch(() => {})
